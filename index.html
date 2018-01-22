@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="author" content="Damien Clavel"/>
+		<meta name="description" content="puck manager"/>
+		<link rel="stylesheet" href="style.css" type="text/css" />
+		<script type="text/javascript" src="index.js"></script>
+	</head>
+	<body>
+	  <div class="main">
+		<div class="leftPanel">
+		  <div class="puckInput">
+			<form name="puck">
+				puck number <input type="text" name="puckNumber">
+				project name<input type="text" name="projectName">
+				manager<input type="text" name="manager">
+				<input type="button" value="create" onclick="createPuck(puck)">
+			</form>
+		  </div>
+		  <div id="robot">
+		  </div>
+		</div>
+		<div class="middlePanel">
+		  <div class="title">deawer</div>
+		  <div id="deawer" class="table" >
+			<div id="canister1" class="tableColumn">
+				<div id="canister1Header" class="tableHeader">Canister 1</div>
+				<div id="canister1Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister1Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister1Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister1Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister1Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister1Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister2" class="tableColumn">
+				<div id="canister2Header" class="tableHeader">Canister 2</div>
+				<div id="canister2Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister2Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister2Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister2Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister2Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister2Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister3" class="tableColumn">
+				<div id="canister3Header" class="tableHeader">Canister 3</div>
+				<div id="canister3Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister3Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister3Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister3Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister3Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister3Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister4" class="tableColumn">
+				<div id="canister4Header" class="tableHeader">Canister 4</div>
+				<div id="canister4Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister4Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister4Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister4Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister4Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister4Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister5" class="tableColumn">
+				<div id="canister5Header" class="tableHeader">Canister 5</div>
+				<div id="canister5Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister5Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister5Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister5Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister5Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister5Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister6" class="tableColumn">
+				<div id="canister6Header" class="tableHeader">Canister 6</div>
+				<div id="canister6Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister6Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister6Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister6Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister6Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister6Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister7" class="tableColumn">
+				<div id="canister7Header" class="tableHeader">Canister 7</div>
+				<div id="canister7Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister7Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister7Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister7Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister7Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister7Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister8" class="tableColumn">
+				<div id="canister8Header" class="tableHeader">Canister 8</div>
+				<div id="canister8Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister8Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister8Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister8Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister8Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister8Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister9" class="tableColumn">
+				<div id="canister9Header" class="tableHeader">Canister 9</div>
+				<div id="canister9Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister9Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister9Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister9Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister9Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister9Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+			<div id="canister10" class="tableColumn">
+				<div id="canister10Header" class="tableHeader">Canister 10</div>
+				<div id="canister10Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister10Cell2" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister10Cell3" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister10Cell4" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister10Cell5" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+				<div id="canister10Cell6" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+				</div>
+			</div>
+		  </div>
+		</div>
+		<div class="rightPanel">
+		  <div id="test">
+		  </div>
+		  <div id="log">
+		  </div>
+		</div>
+	  </div>
+	</body>
+</html>
