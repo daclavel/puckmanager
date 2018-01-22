@@ -2,27 +2,57 @@
 <html>
 	<head>
 		<meta name="author" content="Damien Clavel"/>
-		<meta name="description" content="puck manager"/>
+		<meta name="description" content="Puck manager"/>
+		<title>Puck Manager System (PuMaS)</title>
 		<link rel="stylesheet" href="style.css" type="text/css" />
 		<script type="text/javascript" src="index.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<body>
+
+ 	  <header>
+
+ 		<div class="container">
+  			<img src="puma.png" alt="Notebook" style="width:6%;">
+ 			 <div class="content">
+   				 <h1><font color="#9A2EFE">Pu</font>ck <font color="#9A2EFE">Ma</font>nager <font color="#9A2EFE">S</font>ystem (<font color="#9A2EFE">PuMaS</font>)</h1>
+  				  <p>Management system for pucks dedicated to the HTXlab pipelines.</p>
+ 			 </div>
+		</div> 
+
+	  </header>
+
 	  <div class="main">
 		<div class="leftPanel">
 		  <div class="puckInput">
+			<div class="title">New puck</div>
 			<form name="puck">
-				puck number <input type="text" name="puckNumber">
-				project name<input type="text" name="projectName">
-				manager<input type="text" name="manager">
-				<input type="button" value="create" onclick="createPuck(puck)">
+				<i class="fa fa-cogs" aria-hidden="true"></i>
+				Puck number<br><input type="text" name="puckNumber">
+				<i class="fa fa-plus-square-o" aria-hidden="true"></i>
+				<br>
+
+				<i class="fa fa-cubes" aria-hidden="true"></i>
+				Project name<br><input type="text" name="projectName">
+				<i class="fa fa-plus-square-o" aria-hidden="true"></i>
+				<br>
+
+				<i class="fa fa-user" aria-hidden="true"></i>							
+				Project manager<br><input type="text" name="manager">
+				<i class="fa fa-plus-square-o" aria-hidden="true"></i>
+				<br>
+				<br>
+				<input type="button" value="create" onclick="createPuck(puck)" >
+				<br>
 			</form>
 		  </div>
 		  <div id="robot">
+		  	<div class="title">Harvester</div>
 		  </div>
 		</div>
 		<div class="middlePanel">
-		  <div class="title">deawer</div>
-		  <div id="deawer" class="table" >
+		  <div class="title">Dewar</div>
+		  <div id="dewar" class="table" >
 			<div id="canister1" class="tableColumn">
 				<div id="canister1Header" class="tableHeader">Canister 1</div>
 				<div id="canister1Cell1" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -176,9 +206,19 @@
 		  </div>
 		</div>
 		<div class="rightPanel">
-		  <div id="test">
+	
+		  <div id="test" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+			<div class="title">id30a1</div>
 		  </div>
-		  <div id="log">
+
+
+
+		  <div id="log" class="tableCell" ondrop="drop(event)" ondragover="allowDrop(event)">
+			<div class="title">
+				<i class="fa fa-recycle" aria-hidden="true"></i>
+				Recycle puck 
+				<i class="fa fa-recycle" aria-hidden="true"></i>
+			</div>
 		  </div>
 		</div>
 	  </div>

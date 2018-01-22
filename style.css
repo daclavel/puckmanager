@@ -26,6 +26,7 @@
 .title{
   background-color: ghostwhite;
   text-align: center;
+  font-size:large;
 }
 .table{
   display:block;
@@ -38,6 +39,7 @@
   clear:both;
   background-color:lightblue;
   text-align: center;
+  font-size:small;
 }
 .tableColumn{
   display: block;
@@ -51,10 +53,11 @@
   border: 1px solid #999999;
   clear:both;
   font-size:xx-small;
+  text-align: center;
 }
 .canister{
 }
-.deawer{
+.dewwar{
 
 }
 .puckInput{
@@ -72,6 +75,23 @@ div.puckInput puck{
   
 }
 
+.container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.container img {vertical-align: middle;}
+
+.container .content {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+
 
 #robot {
   min-height:100px;
@@ -83,8 +103,13 @@ div.puckInput puck{
   border: 1px solid crimson;
   margin: 1px;
 }
+
 #log {
   min-height:100px;
   border: 1px solid crimson;
   margin: 1px;
+
+
+
+
 
