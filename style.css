@@ -108,8 +108,19 @@ div.puckInput puck{
   min-height:100px;
   border: 1px solid crimson;
   margin: 1px;
-
-
-
-
-
+}
+.created{
+  background-color:mistyrose;
+}
+.storeUntested{
+  background-color:white;
+}
+.testing{
+  background-color:green;
+}
+.storeTested{
+  background-color:cyan;
+}
+.recycled{
+  background-color:yellow;
+}

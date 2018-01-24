@@ -1,46 +1,66 @@
-function createPuck(puck){
-
+function createPuckDiv(puckStorage){
   var puckDiv=document.createElement("div");
-  var puckStorage= {};
-  puckDiv.id=puck.puckNumber.value;
+  puckDiv.id=puckStorage.number;
   puckDiv.classList.add("puck");
+  puckDiv.classList.add(puckStorage.state);
   puckDiv.setAttribute("draggable","true");
   puckDiv.setAttribute("ondragstart","drag(event)");
-  
+
   var puckNumberDiv=document.createElement("div");
   puckNumberDiv.classList.add("puckElement");
   puckDiv.appendChild(puckNumberDiv);
-  var puckNumberText=document.createTextNode(puck.puckNumber.value);
+  var puckNumberText=document.createTextNode(puckStorage.number);
   puckNumberDiv.appendChild(puckNumberText);
   puckDiv.appendChild(puckNumberDiv);
-  puckStorage.number=puck.puckNumber.value;
 
   var projectNameDiv=document.createElement("div");
   projectNameDiv.classList.add("puckElement");
-  var projectNameText=document.createTextNode(puck.projectName.value);
+  var projectNameText=document.createTextNode(puckStorage.projectName);
   projectNameDiv.appendChild(projectNameText)
   puckDiv.appendChild(projectNameDiv);
-  puckStorage.projectName=puck.projectName.value;
 
   var puckManagerDiv=document.createElement("div");
   puckManagerDiv.classList.add("puckElement");
-  var puckManagerText=document.createTextNode(puck.manager.value);
+  var puckManagerText=document.createTextNode(puckStorage.managerName);
   puckManagerDiv.appendChild(puckManagerText)
   puckDiv.appendChild(puckManagerDiv);
-  puckStorage.managerName=puck.manager.value;
 
   var puckCreationDateDiv=document.createElement("div");
   puckCreationDateDiv.classList.add("puckElement");
   puckDiv.appendChild(puckCreationDateDiv);
-  var creationDate=new Date().toISOString().slice(0, 10)
-  var puckCreationDateText=document.createTextNode(creationDate);
+  var puckCreationDateText=document.createTextNode(puckStorage.creationDate);
   puckCreationDateDiv.appendChild(puckCreationDateText)
   puckDiv.appendChild(puckCreationDateDiv);
-  puckStorage.location="harvester";
-  puckStorage.creationDate=creationDate;
-  puckStorage.endTestDate="";
 
-  document.getElementById("harvester").appendChild(puckDiv);
+  if (puckStorage.endTestDate != "" ){
+    addEndTestDiv(puckDiv,puckStorage.endTestDate);
+  }
+  var targetDiv=document.getElementById(puckStorage.parentId).appendChild(puckDiv);
+  return puckDiv;
+}
+
+function addEndTestDiv(puckDiv,endTestDate){
+    var puckEndTestDateDiv=document.createElement("div");
+    puckEndTestDateDiv.classList.add("puckElement");
+    puckDiv.appendChild(puckEndTestDateDiv);
+    var puckEndTestDateText=document.createTextNode(endTestDate);
+    puckEndTestDateDiv.appendChild(puckEndTestDateText);
+    puckDiv.appendChild(puckEndTestDateDiv);
+}
+
+
+function createPuck(puck){
+
+  var puckStorage={};
+  puckStorage.number=puck.puckNumber.value;
+  puckStorage.projectName=puck.projectName.value;
+  puckStorage.managerName=puck.manager.value;
+  puckStorage.parentId="harvester";
+  puckStorage.creationDate=new Date().toISOString().slice(0, 10);
+  puckStorage.endTestDate="";
+  puckStorage.state="created";
+
+  createPuckDiv(puckStorage);
 
   var storage=getPuckLocalStorage();
   storage.puck[puck.puckNumber.value]=puckStorage;
@@ -87,7 +107,7 @@ function drag(ev) {
     }else if (document.getElementById(ev.target.id).parentNode.id.includes("test")) {
       ev.dataTransfer.setData("from", "test");
     }else if (document.getElementById(ev.target.id).parentNode.id.includes("recycler")) {
-      ev.dataTransfer.setData("from", "test");
+      ev.dataTransfer.setData("from", "recycler");
     }
 
 }
@@ -102,19 +122,29 @@ function dropToDewar(ev) {
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
-  puckStorage.location=ev.target.id;
   auditStorage= shallowCopy(puckStorage);
   if ( ev.dataTransfer.getData("from") == "harvester"){
     auditStorage.action="moveFromHarvesterToDewar";
+    document.getElementById(data).classList.remove("created")
+    document.getElementById(data).classList.add("storeUntested")
+    puckStorage.state="storeUntested";
+    
   }
   else if ( ev.dataTransfer.getData("from") == "test"){
     auditStorage.action="moveFromTestToDewar";
     puckStorage.endTestDate=new Date().toISOString().slice(0, 10);
-    document.getElementById(data).appendChild(document.createTextNode(puckStorage.endTestDate));
+    addEndTestDiv(document.getElementById(data),puckStorage.endTestDate)
+    document.getElementById(data).classList.remove("storeUntested")
+    document.getElementById(data).classList.add("storeTested")
+    puckStorage.state="storeTested";
   }
-  if ( ev.dataTransfer.getData("from") == "recycler"){
-    auditStorage.action="moveFromRecyclerToDewar";
+  else if ( ev.dataTransfer.getData("from") == "recycler"){
+    ev.preventDefault();
+    return;
+    //auditStorage.action="moveFromRecyclerToDewar";
+    //document.getElementById(data).classList.removed("recycled")
   }
+  puckStorage.parentId=ev.target.id;
   storage.audit.push(auditStorage);
   savePuckLocalStorage(storage);
   drop(ev); 
@@ -124,7 +154,6 @@ function dropToTest(ev) {
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
-  puckStorage.location=ev.target.id;
   auditStorage= shallowCopy(puckStorage);
   if ( ev.dataTransfer.getData("from") == "harvester"){
     auditStorage.action="moveFromHarvesterToTest";
@@ -140,8 +169,13 @@ function dropToTest(ev) {
     }
   }
   if ( ev.dataTransfer.getData("from") == "recycler"){
-    auditStorage.action="moveFromRecyclerToTest";
+      ev.preventDefault();
+      return;
+      //auditStorage.action="moveFromRecyclerToTest";
   }
+  puckStorage.parentId=ev.target.id;
+  document.getElementById(data).classList.add("testing")
+  puckStorage.state="storeTested";
   storage.audit.push(auditStorage);
   savePuckLocalStorage(storage);
   drop(ev);
@@ -151,8 +185,11 @@ function dropToTest(ev) {
 function dropToRecycler(ev) {
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
+  document.getElementById(data).classList.remove("testing","created","storeTested","storeUntested");
+  document.getElementById(data).classList.add("recycled");
   var puckStorage=storage.puck[data];
-  puckStorage.location=ev.target.id;
+  puckStorage.state="recycled";
+  puckStorage.parentId=ev.target.id;
   auditStorage= shallowCopy(puckStorage);
   auditStorage.action="moveFrom"+ev.dataTransfer.getData("from").charAt(0).toUpperCase()+ev.dataTransfer.getData("from").slice(1)+"ToRecycler";
   storage.audit.push(auditStorage);
@@ -167,3 +204,26 @@ function shallowCopy(obj) {
     }
     return result;
 }
+
+function loadData(){
+  var storage=getPuckLocalStorage();
+  for (var puck in storage.puck){
+    createPuckDiv(storage.puck[puck]);
+  }
+}
+function clearPucks(){
+  puckDivs=document.getElementsByClassName("puck");
+  for (i=0;i<puckDivs.length;i++){
+    try {
+        puckDivs[i].parentNode.removeChild(puckDivs[i]);
+    }catch (err){
+       log.console(err);
+    }
+  }
+}
+
+//load data at startup
+document.addEventListener("DOMContentLoaded", function(event) {
+    // Your code to run since DOM is loaded and ready
+    loadData();
+});
