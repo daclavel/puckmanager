@@ -50,7 +50,21 @@ function addEndTestDiv(puckDiv,endTestDate){
 
 
 function createPuck(puck){
-
+  if (document.getElementById("harvester").childElementCount >= 3){
+    alert("failed to create puck, harvester is full")
+    return;
+  }
+  var storage=getPuckLocalStorage();
+  var count=0;
+  for ( var key in storage.puck){
+    if (storage.puck[key].state != "recycled"){
+      count++;
+    }
+  }
+  if (count >= 60 ){
+    alert("failed to create puck. Max number of puck has reach his limit")
+    return;
+  }
   var puckStorage={};
   puckStorage.number=puck.puckNumber.value;
   puckStorage.projectName=puck.projectName.value;
@@ -62,7 +76,6 @@ function createPuck(puck){
 
   createPuckDiv(puckStorage);
 
-  var storage=getPuckLocalStorage();
   storage.puck[puck.puckNumber.value]=puckStorage;
   auditStorage=shallowCopy(puckStorage);
   auditStorage.action="creation";
@@ -100,16 +113,6 @@ function allowDrop(ev) {
 function drag(ev) {
     ev.dataTransfer.effectAllowed="move";
     ev.dataTransfer.setData("text", ev.target.id);
-    if (document.getElementById(ev.target.id).parentNode.id.includes("harvester")){
-      ev.dataTransfer.setData("from", "harvester");
-    }else if (document.getElementById(ev.target.id).parentNode.id.includes("canister")) {
-      ev.dataTransfer.setData("from", "dewar");
-    }else if (document.getElementById(ev.target.id).parentNode.id.includes("test")) {
-      ev.dataTransfer.setData("from", "test");
-    }else if (document.getElementById(ev.target.id).parentNode.id.includes("recycler")) {
-      ev.dataTransfer.setData("from", "recycler");
-    }
-
 }
 
 function drop(ev) {
@@ -119,30 +122,34 @@ function drop(ev) {
 }
 
 function dropToDewar(ev) {
+  if (ev.target.firstElementChild != null ){
+    ev.preventDefault();
+    return;
+  }
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
   auditStorage= shallowCopy(puckStorage);
-  if ( ev.dataTransfer.getData("from") == "harvester"){
+  if ( puckStorage.state == "created"){
     auditStorage.action="moveFromHarvesterToDewar";
     document.getElementById(data).classList.remove("created")
     document.getElementById(data).classList.add("storeUntested")
     puckStorage.state="storeUntested";
-    
   }
-  else if ( ev.dataTransfer.getData("from") == "test"){
-    auditStorage.action="moveFromTestToDewar";
+  else if ( puckStorage.state == "testing"){
+    auditStorage.action="moveFromMassifToDewar";
     puckStorage.endTestDate=new Date().toISOString().slice(0, 10);
     addEndTestDiv(document.getElementById(data),puckStorage.endTestDate)
-    document.getElementById(data).classList.remove("storeUntested")
+    document.getElementById(data).classList.remove("testing")
     document.getElementById(data).classList.add("storeTested")
     puckStorage.state="storeTested";
   }
-  else if ( ev.dataTransfer.getData("from") == "recycler"){
+  else if ( puckStorage.state == "storeUntested" ){
+    auditStorage.action="moveFromDewarToDewar";
+  }
+  else {
     ev.preventDefault();
     return;
-    //auditStorage.action="moveFromRecyclerToDewar";
-    //document.getElementById(data).classList.removed("recycled")
   }
   puckStorage.parentId=ev.target.id;
   storage.audit.push(auditStorage);
@@ -150,51 +157,48 @@ function dropToDewar(ev) {
   drop(ev); 
 }
 
-function dropToTest(ev) {
+function dropToMassif(ev) {
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
   auditStorage= shallowCopy(puckStorage);
-  if ( ev.dataTransfer.getData("from") == "harvester"){
-    auditStorage.action="moveFromHarvesterToTest";
+  if ( puckStorage.state == "storeUntested" ){
+    auditStorage.action="moveFromDewarToMassif";
+    puckStorage.parentId=ev.target.id;
+    document.getElementById(data).classList.remove("storeTested")
+    document.getElementById(data).classList.add("testing")
+    puckStorage.state="testing";
+    storage.audit.push(auditStorage);
+    savePuckLocalStorage(storage);
+    drop(ev);
   }
-  else if ( ev.dataTransfer.getData("from") == "dewar"){
-    if ( puckStorage.endTestDate.length === 0 ){
-      auditStorage.action="moveFromDewarToTest";
-    }
-    else {
-      //case where puck has already been in Test
-      ev.preventDefault();
-      return;
-    }
+  else {
+    ev.preventDefault();
+    return;
   }
-  if ( ev.dataTransfer.getData("from") == "recycler"){
-      ev.preventDefault();
-      return;
-      //auditStorage.action="moveFromRecyclerToTest";
-  }
-  puckStorage.parentId=ev.target.id;
-  document.getElementById(data).classList.add("testing")
-  puckStorage.state="storeTested";
-  storage.audit.push(auditStorage);
-  savePuckLocalStorage(storage);
-  drop(ev);
 }
 
 
 function dropToRecycler(ev) {
   var storage=getPuckLocalStorage();
   var data=ev.dataTransfer.getData("text");
-  document.getElementById(data).classList.remove("testing","created","storeTested","storeUntested");
-  document.getElementById(data).classList.add("recycled");
   var puckStorage=storage.puck[data];
-  puckStorage.state="recycled";
-  puckStorage.parentId=ev.target.id;
-  auditStorage= shallowCopy(puckStorage);
-  auditStorage.action="moveFrom"+ev.dataTransfer.getData("from").charAt(0).toUpperCase()+ev.dataTransfer.getData("from").slice(1)+"ToRecycler";
-  storage.audit.push(auditStorage);
-  savePuckLocalStorage(storage);
-  drop(ev);
+  if ( puckStorage.state == "storeTested" ){
+    document.getElementById(data).classList.remove("storeTested");
+    document.getElementById(data).classList.add("recycled");
+    puckStorage.state="recycled";
+    puckStorage.parentId=ev.target.id;
+    auditStorage= shallowCopy(puckStorage);
+    auditStorage.action="moveFromDewarToRecycler";
+    //auditStorage.action="moveFrom"+ev.dataTransfer.getData("from").charAt(0).toUpperCase()+ev.dataTransfer.getData("from").slice(1)+"ToRecycler";
+    storage.audit.push(auditStorage);
+    savePuckLocalStorage(storage);
+    drop(ev);
+  }
+  else {
+      ev.preventDefault();
+      return;
+  }
 }
 
 function shallowCopy(obj) {
@@ -227,3 +231,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // Your code to run since DOM is loaded and ready
     loadData();
 });
+
+function preventMoveElementIfTargetFull(target,count){
+  //every element has a first child that we include in the count
+  if (target.childElementCount === count + 1){
+    alert("failed to move element, target is full")
+    ev.preventDefault();
+    return true;
+  }
+}

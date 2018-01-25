@@ -57,7 +57,7 @@
 }
 .canister{
 }
-.dewwar{
+.dewar{
 
 }
 .puckInput{
@@ -93,18 +93,26 @@ div.puckInput puck{
 }
 
 
-#harvester {
+.harvesterContainer {
   min-height:100px;
   border: 1px solid darkcyan;
   margin: 1px;
 }
-#test {
-  min-height:100px;
+.massifContainer {
   border: 1px solid crimson;
   margin: 1px;
 }
-
-#log {
+.recyclerContainer {
+  border: 1px solid crimson;
+  margin: 1px;
+}
+#massif {
+  min-height:100px;
+}
+#recycler {
+  min-height:100px;
+}
+.logContainer {
   min-height:100px;
   border: 1px solid crimson;
   margin: 1px;

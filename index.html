@@ -46,8 +46,9 @@
 				<br>
 			</form>
 		  </div>
-		  <div id="harvester">
+		  <div class="harvesterContainer">
 		  	<div class="title">Harvester</div>
+		        <div id="harvester"></div>
 		  </div>
 		</div>
 		<div class="middlePanel">
@@ -207,18 +208,20 @@
 		</div>
 		<div class="rightPanel">
 	
-		  <div id="test" class="tableCell" ondrop="dropToTest(event)" ondragover="allowDrop(event)">
+		  <div class="massifContainer">
 			<div class="title">id30a1</div>
+			<div id="massif" ondrop="dropToMassif(event)" ondragover="allowDrop(event)"></div>
 		  </div>
 
 
 
-		  <div id="recycler" class="tableCell" ondrop="dropToRecycler(event)" ondragover="allowDrop(event)">
+		  <div class="recyclerContainer">
 			<div class="title">
 				<i class="fa fa-recycle" aria-hidden="true"></i>
 				Recycle puck 
 				<i class="fa fa-recycle" aria-hidden="true"></i>
 			</div>
+                        <div id="recycler" ondrop="dropToRecycler(event)" ondragover="allowDrop(event)"></div>
 		  </div>
 		</div>
 	  </div>
