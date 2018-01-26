@@ -35,8 +35,8 @@ function createPuckDiv(puckStorage){
   if (puckStorage.endTestDate != "" ){
     addEndTestDiv(puckDiv,puckStorage.endTestDate);
   }
-  var targetDiv=document.getElementById(puckStorage.parentId).appendChild(puckDiv);
-  return puckDiv;
+  document.getElementById(puckStorage.parentId).appendChild(puckDiv);
+
 }
 
 function addEndTestDiv(puckDiv,endTestDate){
@@ -48,6 +48,70 @@ function addEndTestDiv(puckDiv,endTestDate){
     puckDiv.appendChild(puckEndTestDateDiv);
 }
 
+function createAuditDiv(auditStorage){
+  var auditDiv=document.createElement("div");
+  auditDiv.id="audit"+auditStorage.timestamp+"Puck"+auditStorage.number;
+  auditDiv.classList.add("audit");
+
+  var auditTimeDiv=document.createElement("div");
+  auditTimeDiv.classList.add("auditCell");
+  auditTimeDiv.classList.add("auditTime");
+  auditDiv.appendChild(auditTimeDiv);
+  var auditTimeText=document.createTextNode(auditStorage.time);
+  auditTimeDiv.appendChild(auditTimeText);
+  auditDiv.appendChild(auditTimeDiv);
+
+  var auditActionDiv=document.createElement("div");
+  auditActionDiv.classList.add("auditCell");
+  auditActionDiv.classList.add("auditAction");
+  auditDiv.appendChild(auditActionDiv);
+  var auditActionText=document.createTextNode(auditStorage.action);
+  auditActionDiv.appendChild(auditActionText);
+  auditDiv.appendChild(auditActionDiv);
+
+  var auditPuckNumberDiv=document.createElement("div");
+  auditPuckNumberDiv.classList.add("auditCell");
+  auditPuckNumberDiv.classList.add("auditPuckNumber");
+  auditDiv.appendChild(auditPuckNumberDiv);
+  var auditPuckNumberText=document.createTextNode(auditStorage.number);
+  auditPuckNumberDiv.appendChild(auditPuckNumberText);
+  auditDiv.appendChild(auditPuckNumberDiv);
+
+  var auditPuckProjectDiv=document.createElement("div");
+  auditPuckProjectDiv.classList.add("auditCell");
+  auditPuckProjectDiv.classList.add("auditPuckProject");
+  auditDiv.appendChild(auditPuckProjectDiv);
+  var auditPuckProjectText=document.createTextNode(auditStorage.projectName);
+  auditPuckProjectDiv.appendChild(auditPuckProjectText);
+  auditDiv.appendChild(auditPuckProjectDiv);
+
+  var auditPuckManagerDiv=document.createElement("div");
+  auditPuckManagerDiv.classList.add("auditCell");
+  auditPuckManagerDiv.classList.add("auditPuckManager");
+  auditDiv.appendChild(auditPuckManagerDiv);
+  var auditPuckManagerText=document.createTextNode(auditStorage.managerName);
+  auditPuckManagerDiv.appendChild(auditPuckManagerText);
+  auditDiv.appendChild(auditPuckManagerDiv);
+
+  var auditPuckCreationDateDiv=document.createElement("div");
+  auditPuckCreationDateDiv.classList.add("auditCell");
+  auditPuckCreationDateDiv.classList.add("auditPuckCreationDate");
+  auditDiv.appendChild(auditPuckCreationDateDiv);
+  var auditPuckCreationDateText=document.createTextNode(auditStorage.creationDate);
+  auditPuckCreationDateDiv.appendChild(auditPuckCreationDateText);
+  auditDiv.appendChild(auditPuckCreationDateDiv);
+
+  var auditPuckEndTestDateDiv=document.createElement("div");
+  auditPuckEndTestDateDiv.classList.add("auditCell");
+  auditPuckEndTestDateDiv.classList.add("auditPuckEndTestDate");
+  auditDiv.appendChild(auditPuckEndTestDateDiv);
+  var auditPuckEndTestDateText=document.createTextNode(auditStorage.endTestDate);
+  auditPuckEndTestDateDiv.appendChild(auditPuckEndTestDateText);
+  auditDiv.appendChild(auditPuckEndTestDateDiv);
+
+  var logDiv=document.getElementById("log");
+  logDiv.insertBefore(auditDiv,logDiv.childNodes[0]);
+}
 
 function createPuck(puck){
   if (document.getElementById("harvester").childElementCount >= 3){
@@ -78,9 +142,12 @@ function createPuck(puck){
 
   storage.puck[puck.puckNumber.value]=puckStorage;
   auditStorage=shallowCopy(puckStorage);
+  auditStorage.time=new Date().toUTCString();
+  auditStorage.timestamp=new Date().getTime();
   auditStorage.action="creation";
   storage.audit.push(auditStorage);
   savePuckLocalStorage(storage);
+  createAuditDiv(auditStorage);
 }
 
 function getPuckLocalStorage(){
@@ -130,6 +197,8 @@ function dropToDewar(ev) {
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
   auditStorage= shallowCopy(puckStorage);
+  auditStorage.time=new Date().toUTCString();
+  auditStorage.timestamp=new Date().getTime();
   if ( puckStorage.state == "created"){
     auditStorage.action="moveFromHarvesterToDewar";
     document.getElementById(data).classList.remove("created")
@@ -139,6 +208,7 @@ function dropToDewar(ev) {
   else if ( puckStorage.state == "testing"){
     auditStorage.action="moveFromMassifToDewar";
     puckStorage.endTestDate=new Date().toISOString().slice(0, 10);
+    auditStorage.endTestDate=puckStorage.endTestDate;
     addEndTestDiv(document.getElementById(data),puckStorage.endTestDate)
     document.getElementById(data).classList.remove("testing")
     document.getElementById(data).classList.add("storeTested")
@@ -154,6 +224,7 @@ function dropToDewar(ev) {
   puckStorage.parentId=ev.target.id;
   storage.audit.push(auditStorage);
   savePuckLocalStorage(storage);
+  createAuditDiv(auditStorage);
   drop(ev); 
 }
 
@@ -162,6 +233,8 @@ function dropToMassif(ev) {
   var data=ev.dataTransfer.getData("text");
   var puckStorage=storage.puck[data];
   auditStorage= shallowCopy(puckStorage);
+  auditStorage.time=new Date().toUTCString();
+  auditStorage.timestamp=new Date().getTime();
   if ( puckStorage.state == "storeUntested" ){
     auditStorage.action="moveFromDewarToMassif";
     puckStorage.parentId=ev.target.id;
@@ -170,6 +243,7 @@ function dropToMassif(ev) {
     puckStorage.state="testing";
     storage.audit.push(auditStorage);
     savePuckLocalStorage(storage);
+    createAuditDiv(auditStorage);
     drop(ev);
   }
   else {
@@ -189,10 +263,13 @@ function dropToRecycler(ev) {
     puckStorage.state="recycled";
     puckStorage.parentId=ev.target.id;
     auditStorage= shallowCopy(puckStorage);
+    auditStorage.time=new Date().toUTCString();
+    auditStorage.timestamp=new Date().getTime();
     auditStorage.action="moveFromDewarToRecycler";
     //auditStorage.action="moveFrom"+ev.dataTransfer.getData("from").charAt(0).toUpperCase()+ev.dataTransfer.getData("from").slice(1)+"ToRecycler";
     storage.audit.push(auditStorage);
     savePuckLocalStorage(storage);
+    createAuditDiv(auditStorage);
     drop(ev);
   }
   else {
@@ -213,6 +290,9 @@ function loadData(){
   var storage=getPuckLocalStorage();
   for (var puck in storage.puck){
     createPuckDiv(storage.puck[puck]);
+  }
+  for (var audit in storage.audit){
+    createAuditDiv(storage.audit[audit]);
   }
 }
 function clearPucks(){

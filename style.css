@@ -30,6 +30,7 @@
 }
 .table{
   display:block;
+  clear:both;
   width:100%;
 }
 .tableHeader{
@@ -57,9 +58,7 @@
 }
 .canister{
 }
-.dewar{
 
-}
 .puckInput{
   border: 1px solid darkcyan;
   margin: 1px;
@@ -113,7 +112,10 @@ div.puckInput puck{
   min-height:100px;
 }
 .logContainer {
-  min-height:100px;
+  display:block;
+  clear:both;
+  overflow: auto;
+  height:200px;
   border: 1px solid crimson;
   margin: 1px;
 }
@@ -131,4 +133,42 @@ div.puckInput puck{
 }
 .recycled{
   background-color:yellow;
+}
+.clearance{
+  display:block;
+  clear:both;
+  height:10px;
+}
+.logTitle{
+  background-color: cornsilk;
+  text-align: center;
+  font-size:large;
+}
+.auditHeader {
+  border: 1px solid cornsilk;
+}
+.auditCell {
+  float:left;
+  display:block;
+}
+.auditTime{
+  width:20%;
+}
+.auditAction{
+  width:20%;
+}
+.auditPuckNumber{
+  width:10%;
+}
+.auditPuckProject{
+  width:10%;
+}
+.auditPuckManager{
+  width:10%;
+}
+.auditPuckCreationDate{
+  width:15%;
+}
+.auditPuckEndTestDate{
+  width:15%;
 }
