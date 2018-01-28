@@ -1,0 +1,212 @@
+.main{
+  width:100%;
+}
+
+.leftPanel{
+  float:left;
+  width: 13%;
+  margin-left:1%;
+  height: 100%;  
+  border: 1px solid blue;
+}
+.middlePanel{
+  float:left;
+  width: 43%;
+  height: 100%;  
+  margin-left:1%;
+  border: 1px solid green;
+}
+.rightPanel{
+  float:left;
+  width: 40%;
+  margin-left:1%;
+  height: 100%;  
+  border: 1px solid red;
+}
+.title{
+  background-color: ghostwhite;
+  text-align: center;
+  font-size:large;
+}
+.table{
+  display:block;
+  clear:both;
+  width:100%;
+}
+.tableHeader{
+  float:left;
+  padding: 3px 10px;
+  border: 1px solid #999999;
+  clear:both;
+  background-color:lightblue;
+  text-align: center;
+  font-size:small;
+}
+.tableColumn{
+  display: block;
+  float:left;
+  width:10%;
+}
+.tableCell{
+  display: block;
+  padding: 3px 5px;
+  height:50px;
+  border: 1px solid #999999;
+  clear:both;
+  font-size:xx-small;
+  text-align: center;
+}
+.canister{
+}
+
+.puckInput{
+  border: 1px solid darkcyan;
+  margin: 1px;
+}
+div.puckInput puck{
+  display:block;
+  clear:both;
+}
+.puck {
+  display:block;
+  clear:both;
+  border: 1px solid black;
+  
+}
+
+.container {
+    position: relative;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.container img {vertical-align: middle;}
+
+.container .content {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Black background with transparency */
+    color: #f1f1f1;
+    width: 100%;
+    padding: 20px;
+}
+
+
+.harvesterContainer {
+  min-height:100px;
+  border: 1px solid darkcyan;
+  margin: 1px;
+}
+.massifContainer {
+  border: 1px solid crimson;
+  margin: 1px;
+}
+.recyclerContainer {
+  border: 1px solid crimson;
+  margin: 1px;
+}
+#massif {
+  min-height:100px;
+}
+#recycler {
+  min-height:100px;
+}
+.logContainer {
+  display:block;
+  clear:both;
+  overflow: auto;
+  height:200px;
+  border: 1px solid crimson;
+  margin: 1px;
+  font-size:xx-small;
+}
+.created{
+  background-color:mistyrose;
+}
+.storeUntested{
+  background-color:white;
+}
+.testing{
+  background-color:green;
+}
+.storeTested{
+  background-color:cyan;
+}
+.recycled{
+  background-color:yellow;
+}
+.clearance{
+  display:block;
+  clear:both;
+  height:10px;
+}
+.logTitle{
+  background-color: cornsilk;
+  text-align: center;
+  font-size:large;
+}
+.auditHeader {
+  border: 1px solid cornsilk;
+}
+.auditCell {
+  float:left;
+  display:block;
+}
+.auditTime{
+  width:20%;
+}
+.auditAction{
+  width:20%;
+}
+.auditPuckNumber{
+  width:10%;
+}
+.auditPuckProject{
+  width:10%;
+}
+.auditPuckManager{
+  width:10%;
+}
+.auditPuckCreationDate{
+  width:15%;
+}
+.auditPuckEndTestDate{
+  width:15%;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 3px 10px;
+    transition: 0.3s;
+    font-size: small;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
