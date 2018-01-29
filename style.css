@@ -201,12 +201,12 @@ div.puckInput puck{
 .tab {
     overflow: hidden;
     /*border: 1px solid #ccc;*/
-    background-color: #f1f1f1;
+    background-color: lightblue;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
-    background-color: inherit;
+    background-color: lightblue;
     float: left;
     border: none;
     outline: none;
