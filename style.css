@@ -35,17 +35,23 @@
 }
 .tableHeader{
   float:left;
-  padding: 3px 10px;
+  padding: 3px 30px;
   border: 1px solid #999999;
   clear:both;
   background-color:lightblue;
   text-align: center;
   font-size:small;
+  width:10%;
 }
 .tableColumn{
   display: block;
   float:left;
   width:10%;
+}
+.tableStorage{
+  display: block;
+  float:left;
+  width:12.5%;
 }
 .tableCell{
   display: block;
@@ -98,7 +104,7 @@ div.puckInput puck{
 
 
 .harvesterContainer {
-  min-height:100px;
+  min-height:150px;
   border: 1px solid darkcyan;
   margin: 1px;
   text-align: center; 
@@ -106,7 +112,7 @@ div.puckInput puck{
 }
 .massifContainer {
   min-height:100px;  
-  border: 1px solid crimson;
+  /*border: 1px solid crimson;*/
   margin: 1px;
   text-align: center;
 }
@@ -194,7 +200,7 @@ div.puckInput puck{
 /* Style the tab */
 .tab {
     overflow: hidden;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     background-color: #f1f1f1;
 }
 
@@ -224,6 +230,6 @@ div.puckInput puck{
 .tabcontent {
     display: none;
     padding: 6px 12px;
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
     border-top: none;
 }
