@@ -4,8 +4,8 @@
 
 .leftPanel{
   float:left;
-  width: 13%;
-  margin-left:1%;
+  width: 9%;
+  margin-left:0.5%;
   height: 100%;  
   border: 1px solid blue;
 }
@@ -13,13 +13,13 @@
   float:left;
   width: 43%;
   height: 100%;  
-  margin-left:1%;
+  margin-left:0.5%;
   border: 1px solid green;
 }
 .rightPanel{
   float:left;
-  width: 40%;
-  margin-left:1%;
+  width: 43%;
+  margin-left:0.5%;
   height: 100%;  
   border: 1px solid red;
 }
@@ -59,6 +59,11 @@
 .canister{
 }
 
+.button{
+    text-align: center;
+}
+
+
 .puckInput{
   border: 1px solid darkcyan;
   margin: 1px;
@@ -96,14 +101,20 @@ div.puckInput puck{
   min-height:100px;
   border: 1px solid darkcyan;
   margin: 1px;
+  text-align: center; 
+  font-size:xx-small 
 }
 .massifContainer {
+  min-height:100px;  
   border: 1px solid crimson;
   margin: 1px;
+  text-align: center;
 }
 .recyclerContainer {
   border: 1px solid crimson;
   margin: 1px;
+  text-align: center;
+  font-size:xx-small
 }
 #massif {
   min-height:100px;
@@ -118,22 +129,28 @@ div.puckInput puck{
   height:200px;
   border: 1px solid crimson;
   margin: 1px;
-  font-size:xx-small;
+  /*font-size:xx-small;*/
+  font-size:50%
 }
 .created{
-  background-color:mistyrose;
+  background-color:#ffccff;
+  /* ligth pink */
 }
 .storeUntested{
-  background-color:white;
+  background-color:#e6e6e6;
+  /*grey*/
 }
 .testing{
-  background-color:green;
+  background-color:#ccff99;
+  /*green */
 }
 .storeTested{
-  background-color:cyan;
+  background-color:#ff5050;
+  /* red */
 }
 .recycled{
-  background-color:yellow;
+  background-color:#ffffcc;
+  /* yellow */
 }
 .clearance{
   display:block;
