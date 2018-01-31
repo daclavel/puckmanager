@@ -115,7 +115,7 @@ function createAuditDiv(auditStorage){
 
 function createPuck(puck){
   if (document.getElementById("harvester").childElementCount >= 3){
-    alert("failed to create puck, harvester is full")
+    alert("No more puck can be created! \n CDH is full.")
     return;
   }
   var storage=getPuckLocalStorage();
@@ -322,8 +322,23 @@ function preventMoveElementIfTargetFull(target,count){
   }
 }
 
-/*Tab script*/
+/*Tab script beam*/
 function openBeam(evt, beamName) {
+    var i, tabscontent, tablinks;
+    tabscontent = document.getElementsByClassName("tabscontent");
+    for (i = 0; i < tabscontent.length; i++) {
+        tabscontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(beamName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+/*Tab script stats*/
+function openStat(evt, statName) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("tabcontent");
     for (i = 0; i < tabcontent.length; i++) {
@@ -333,6 +348,6 @@ function openBeam(evt, beamName) {
     for (i = 0; i < tablinks.length; i++) {
         tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-    document.getElementById(beamName).style.display = "block";
+    document.getElementById(statName).style.display = "block";
     evt.currentTarget.className += " active";
 }

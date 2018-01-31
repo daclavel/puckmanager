@@ -225,25 +225,40 @@
 			</div>
 		  </div>
 		  <div class="clearance"></div>
-		  <div class="logContainer" >
-			<div class="logTitle">
-                          <i class="fa fa-tasks" aria-hidden="true"></i>
-                          Statistics
-                        </div>
-                        
-                        <div class=table>
+
+		  <div class="title">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    Statistics and log
+                  </div>
+                  <!-- Tab links -->
+                  <div class="tab">
+                    <button class="tablinks" onclick="openStat(event, 'stat')">Statistics</button>
+                    <button class="tablinks" onclick="openStat(event, 'log')">Log</button>
+                  </div>
+
+                  <!-- Tab content -->
+                  <div class="logContainer" >
+                    <div id="stat" class="tabcontent">
+                      <h1>Statistics</h1>
+                      <div class=table>
+sds
+                        <div class="storage"></div>
                           Amount of pucks stored @ the lab: XX <br>
                                          Free space in dewar #1: XXX / XX%    Puck already tested in dewar #1: XXX / XX% <br>
                                          Free space in dewar #2: XXX / XX%    Puck already tested in dewar #2: XXX / XX% <br>
                           Amount of pucks stored @ the beamlines: XX <br>
                           Amount of pucks stored with users: XX
+                      </div>        
+		    </div>
+                  
 
-                        </div>
-
-			<div class="logTitle">
-                          <i class="fa fa-tasks" aria-hidden="true"></i>
-                          Logs
-                        </div>
+                  
+                    <div id="log" class="tabcontent">
+		      <!--<div class="logTitle">
+                        <i class="fa fa-tasks" aria-hidden="true"></i>
+                        Statistics
+                      </div>-->
+                        
 			<div class="auditHeader">
 			  <div class="auditCell auditTime">Time</div>
 			  <div class="auditCell auditAction">Action</div>
@@ -253,10 +268,13 @@
 			  <div class="auditCell auditPuckCreationDate">Creation Date</div>
 			  <div class="auditCell auditPuckEndTestDate">End Test Date</div>
 			</div>
-			<div id="log" ></div>
+			<div id="log" ></div>        
+		    </div>
+                  </div>	  
+ </div>
 
-		  </div>
-		</div>
+
+
 		<div class="rightPanel">
 	
 		  <div class="massifContainer">
@@ -277,7 +295,7 @@
                         </div>
                         
                         <!-- Tab content -->
-                        <div id="massif1a" class="tabcontent">
+                        <div id="massif1a" class="tabscontent">
 			  <div id="massif" ondrop="dropToMassif(event)" ondragover="allowDrop(event)">
                             <div id="storage1" class="table" >
 			      <div id="storage11" class="tableStorage"> 
@@ -459,10 +477,9 @@
                             </div>
                         </div>
 
-                        <div id="massif3a" class="tabcontent">
+                        <div id="massif3a" class="tabscontent">
 			  <div id="massif" ondrop="dropToMassif(event)" ondragover="allowDrop(event)">
                             <div id="storage2" class="table" >
-jksdbfksbdf
 			      <!--<div id="storage21" class="tableStorage"> 
 			          <div id="storage21Cell1" class="tableCell" ondrop="dropToDewar(event)" ondragover="allowDrop(event)">
   				  </div>
@@ -644,15 +661,15 @@ jksdbfksbdf
 
                         </div>
 
-                        <div id="massif30b" class="tabcontent">
+                        <div id="massif30b" class="tabscontent">
 			  <div id="massif" ondrop="dropToMassif(event)" ondragover="allowDrop(event)"></div>
                         </div>
 
-                        <div id="users" class="tabcontent">
+                        <div id="users" class="tabscontent">
                           <div id="massif" ondrop="dropToMassif(event)" ondragover="allowDrop(event)"></div>
                         </div>
 
-                        <div id="beamPlus" class="tabcontent">
+                        <div id="beamPlus" class="tabscontent">
                           <!-- add div content [HERE]
                           <div>
                             This tab is not working yet
